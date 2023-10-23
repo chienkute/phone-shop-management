@@ -1,0 +1,80 @@
+{% load static %}
+<header class="section-header">
+  <section class="header-main border-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-2 col-md-3 col-6">
+          <a href="/" class="brand-wrap">
+            <img
+              class="logo"
+              src="{% static 'app/images/cellphone-logo.png' %}"
+            />
+          </a>
+        </div>
+
+        <div class="col-lg col-md-6 col-sm-12 col">
+
+          <form action="{% url 'category' %}" class="search" method="POST">
+
+            {% csrf_token %}
+            <div class="input-group w-100">
+              <input
+                name="searched"
+                type="text"
+                class="form-control"
+                style="width: 60%"
+                placeholder="Search"
+              />
+
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <!-- search-wrap .end// -->
+        </div>
+        <!-- col.// -->
+        <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
+          <div class="d-flex justify-content-end mb-3 mb-lg-0">
+            <div class="widget-header">
+              {% if user.is_authenticated %}
+              <small class="title text-muted">Welcome {{request.user}}!</small>
+              {% else %}
+              <small class="title text-muted">Welcome Guest!</small>
+              {% endif %}
+
+              <div>
+                {% if user.is_authenticated %}
+
+                <span><a href="{% url 'history' %}">History</a></span>
+                <span class="dark-transp"> | </span>
+                <span><a href="{% url 'logout' %}">Logout</a></span>
+                {% else %}
+                <a href="{% url 'sign_in' %}">Sign in</a>
+                <span class="dark-transp"> | </span>
+                <a href="{% url 'register' %}"> Register</a>
+                {% endif %}
+              </div>
+            </div>
+            <a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
+
+              <div class="icon icon-sm rounded-circle border">
+                <i class="fa fa-shopping-cart"></i>
+              </div>
+              <span class="badge badge-pill badge-danger notify"
+                >{{total_items}}</span
+              >
+            </a>
+          </div>
+          <!-- widgets-wrap.// -->
+        </div>
+        <!-- col.// -->
+      </div>
+      <!-- row.// -->
+    </div>
+    <!-- container.// -->
+  </section>
+  <!-- header-main .// -->
+</header>
